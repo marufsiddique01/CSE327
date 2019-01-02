@@ -1,0 +1,34 @@
+<?php
+class A_status extends CI_Controller {
+	
+	function __construct(){
+    	parent::__construct();
+		if($this->session->userdata('logged_in')){
+			$this->load->model('admin/M_status');
+			$this->load->model('admin/M_common');
+    	}else{
+      		redirect('adminlogin', 'refresh');
+		}
+  	}
+/* ==================================================================================
+	STATUS INSERT
+================================================================================== */
+	public function status_list() {
+		$dataarr = array();
+		$metadata = array();
+		$metadata = $this->M_common->session_info();
+		$metadata["title"] = 'Status List :: Metro Lifestyle';
+		$dataarr['metadata'] = $metadata;
+		
+		$dataarr['status_list'] = $this->M_status->status_list();
+		$this->load->view( 'admin/setups/status/list', $dataarr );
+	} // End of function
+	public function status_insert_index() {
+		$dataarr = array();
+		$metadata = array();
+		$metadata = $this->M_common->session_info();
+		$metadata["title"] = 'Status Upload :: Metro Lifestyle';
+		$dataarr['metadata'] = $metadata;
+		
+		$this->load->view( 'admin/setups/status/insert', $dataarr );
+	} // End of function

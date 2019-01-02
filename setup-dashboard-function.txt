@@ -1,0 +1,37 @@
+/* ==================================================================================
+	PRODUCT TOTAL SOLD QUANTITY 
+================================================================================== */
+	public function totalsold() {
+		$this->db->select_sum('orderqty');
+		$this->db->from('customer_record');
+		$query = $this->db->get();
+		
+		if ( $query->num_rows() ) {
+			return $query->row()->orderqty;
+		} else {
+			return false;
+		}
+	} // End of function
+/* ==================================================================================
+	TOTAL PRODUCT DESIGNS 
+================================================================================== */
+	public function designquantity() {
+		$this->db->select('id');
+		$this->db->from('item_parent'); 
+		$query = $this->db->get(); 
+		return $query->num_rows();
+	} // End of function
+/* ==================================================================================
+	TOTAL SALES  REPORT 
+================================================================================== */
+	public function totalearnings() {
+		$this->db->select_sum('pcost');
+		$this->db->from('sales_info');
+		$query = $this->db->get();
+		if ( $query->num_rows() ) {
+			return $query->row()->pcost;
+		} else {
+			return false;
+		}
+	} // End of function	
+}
